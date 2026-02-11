@@ -2,7 +2,7 @@
 
 This project investigates whether learned latent representations of financial time series improve volatility regime classification and regime change detection compared to classical feature engineering methods.
 
-The work is conducted as part of a Master's thesis at KTH.
+The work is conducted as part of a Bachelors's thesis at KTH Royal Institute of Technology.
 
 ---
 
