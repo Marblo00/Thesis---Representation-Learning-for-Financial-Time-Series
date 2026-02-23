@@ -86,7 +86,7 @@ def set_global_seed(seed: int = RANDOM_SEED) -> None:
     random.seed(seed)
     np.random.seed(seed)
 
-    # Optional: If PyTorch is used later
+    # If PyTorch is used later:
     try:
         import torch
         torch.manual_seed(seed)
