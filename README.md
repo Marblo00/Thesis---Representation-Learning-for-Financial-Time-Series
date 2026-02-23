@@ -1,100 +1,120 @@
 # Representation Learning for Financial Time Series
 
-This project investigates whether learned latent representations of financial time series improve volatility regime classification and regime change detection compared to classical feature engineering methods.
+This project investigates whether learned latent representations of financial time series improve volatility-regime classification compared to classical handcrafted statistical features.
 
-The work is conducted as part of a Bachelors's thesis at KTH Royal Institute of Technology.
+The work is conducted as part of a Bachelor’s thesis in Computer Science and Engineering at KTH Royal Institute of Technology.
 
 ---
 
-## Research Objective
+## Research Question
 
-We evaluate whether embeddings learned from rolling windows of daily financial returns using:
+To what extent can latent representations learned from rolling windows of daily financial returns using:
 
-- Principal Component Analysis (PCA)
-- Autoencoders (AE)
-- Variational Autoencoders (VAE)
+- Principal Component Analysis (PCA)  
+- Autoencoders (AE)  
+- Variational Autoencoders (VAE)  
 
-improve downstream performance on:
+improve classification of volatility regimes compared to classical feature-based approaches across different financial markets?
 
-- Volatility regime classification  
-- Regime change detection  
+---
 
-compared to handcrafted statistical features and supervised baselines.
+## Project Scope
+
+The project focuses strictly on evaluating representation quality for downstream classification — not price prediction or trading.
+
+Key constraints:
+
+- Binary volatility regime classification (high vs low volatility)
+- Two markets: US index proxy and Swedish index proxy
+- CPU-feasible dataset and models
+- Emphasis on evaluation design, robustness, and reproducibility
 
 ---
 
 ## Motivation
 
-Financial time series are noisy and non-stationary. Rather than predicting price direction, this project focuses on:
+Financial time series are noisy, non-stationary, and difficult to model using traditional feature engineering alone. Representation learning methods offer a way to compress rolling return windows into compact embeddings that may capture underlying structure more effectively.
 
-- Learning compact representations of return windows  
-- Quantitatively evaluating representation quality  
-- Testing transferability across markets  
+Rather than attempting to predict returns, this project evaluates whether learned embeddings provide more informative features for regime classification than classical handcrafted statistics.
 
-The emphasis is on evaluation design, robustness, and applied machine learning methodology.
+The work emphasizes:
+
+- Representation quality  
+- Fair benchmarking against classical features  
+- Cross-market robustness  
+- Applied machine learning methodology  
 
 ---
 
 ## Method Overview
 
+### Data Processing
+
 1. Download daily adjusted closing prices for selected equity indices.
-2. Compute log returns and rolling volatility.
-3. Construct rolling windows (e.g., 60 trading days).
-4. Learn embeddings using PCA, Autoencoder, and VAE.
-5. Evaluate embeddings via:
-   - Logistic regression for regime classification
-   - Change-point detection in embedding space
-6. Compare results against classical handcrafted feature baselines.
+2. Compute log returns.
+3. Compute rolling volatility.
+4. Construct rolling windows (e.g., 60 trading days) of:
+   - Returns  
+   - Absolute returns (volatility proxy)
+
+Each window forms the input sample for representation learning.
+
+### Representation Methods
+
+Each rolling window is mapped to a fixed-size embedding using:
+
+- PCA (linear baseline)
+- Autoencoder (nonlinear learned compression)
+- Variational Autoencoder (probabilistic latent representation)
+
+Embedding dimension typically ranges from 8–32.
+
+### Baseline Features
+
+Handcrafted statistical features are computed per window:
+
+- Rolling mean  
+- Rolling standard deviation  
+- Momentum  
+
+These serve as a classical benchmark for comparison.
+
+### Downstream Evaluation
+
+Embeddings and baseline features are evaluated using:
+
+- Logistic regression classifier for volatility regime classification
+
+Volatility regimes are defined via rolling volatility thresholding (e.g., above/below median).
+
+---
+
+## Evaluation Metrics
+
+### Regime Classification
+
+- Accuracy  
+- F1-score  
+- Balanced accuracy (if class imbalance occurs)
+
+### Reliability
+
+- Multiple random seeds for AE/VAE training  
+- Comparison across two markets (US vs Sweden)  
+- Statistical comparison where appropriate  
 
 ---
 
 ## Dataset
 
 - Daily adjusted close prices
-- US broad index proxy (e.g., S&P 500)
+- US broad market index proxy (e.g., S&P 500 ETF)
 - Swedish index proxy (e.g., OMXS30)
 - Optional volatility proxy (VIX)
 
-Data is sourced from publicly available CSV providers.
-
----
-
-## Evaluation Metrics
-
-**Regime Classification**
-- Accuracy
-- F1-score
-- Balanced accuracy (if needed)
-
-**Change Detection**
-- Precision
-- Recall
-- F1-score
-- Detection delay
-- False alarm rate
+All data is sourced from publicly available providers (e.g., Yahoo Finance, Stooq).  
+No proprietary or personal data is used.
 
 ---
 
 ## Repository Structure
-
-data/
-src/
-notebooks/
-results/
-report/
-
-
-- `data/` – Raw and processed datasets  
-- `src/` – Model implementations and evaluation code  
-- `notebooks/` – Exploratory analysis  
-- `results/` – Saved metrics and figures  
-- `report/` – Thesis materials
-
----
-
-## Key Focus
-
-- Representation learning for time series
-- Benchmarking and evaluation
-- Cross-market generalization
-- Applied ML engineering practices
