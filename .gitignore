@@ -1,0 +1,61 @@
+# =========================
+# Python / bytecode
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================
+# Virtual environments
+# =========================
+venv/
+.venv/
+env/
+.ENV/
+pip-wheel-metadata/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# OS / editor
+# =========================
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+# =========================
+# Build / packaging
+# =========================
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# Project generated data / artifacts
+# =========================
+data/processed/
+*.npz
+
+# Model checkpoints / weights
+results/models/
+*.pt
+*.pth
+
+# Generated results / plots
+results/tables/
+results/plots/
+*.png
+*.pdf
+*.svg
+
+# If you want to keep the folders but not the generated files:
+# keep a .gitkeep in results/tables/ and results/plots/ if needed
