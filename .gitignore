@@ -53,6 +53,10 @@ results/models/
 # Generated results / plots
 results/tables/
 results/plots/
+*metrics.csv
 *.png
 *.pdf
 *.svg
+
+results/omxs_experiment.json
+results/spx_experiment.json
